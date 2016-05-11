@@ -23,8 +23,25 @@ ClockManager Frequencies(
 	.CLK_C(CLK_C5)
 );
 
-always @ (*) begin
-	FREQ = CLK_A;
+always @ (posedge CLK or posedge RESET) begin
+	if (RESET)
+		FREQ <= 0;
+	else if (sw[0])
+		FREQ <= CLK_C4;
+	else if (sw[1])
+		FREQ <= CLK_D;
+	else if (sw[2])
+		FREQ <= CLK_E;
+	else if (sw[3])
+		FREQ <= CLK_F;
+	else if (sw[4])
+		FREQ <= CLK_G;
+	else if (sw[5])
+		FREQ <= CLK_A;
+	else if (sw[6])
+		FREQ <= CLK_B;
+	else if (sw[7])
+		FREQ <= CLK_C5;
 end
 
 endmodule
