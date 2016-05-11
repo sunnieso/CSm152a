@@ -13,7 +13,14 @@ wire CLK_A;
 ClockManager Frequencies(
 	.RESET(RESET),
 	.CLK(CLK),
-	.CLK_A(CLK_A)
+	.CLK_C(CLK_C4),
+	.CLK_D(CLK_D),
+	.CLK_E(CLK_E),
+	.CLK_F(CLK_F),
+	.CLK_G(CLK_G),
+	.CLK_A(CLK_A),
+	.CLK_B(CLK_B),
+	.CLK_C(CLK_C5)
 );
 
 always @ (*) begin
