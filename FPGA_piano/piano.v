@@ -43,6 +43,8 @@ always @ (posedge CLK or posedge RESET) begin
 		FREQ <= CLK_B;
 	else if (sw[0])
 		FREQ <= CLK_C5;
+	else
+		FREQ <= 0;
 end
 
 endmodule
