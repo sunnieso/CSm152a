@@ -1,21 +1,15 @@
 `timescale 1ns / 1ps
 `include "freq.v"
-`include "parameters.v"
 
 module piano (
 	input CLK,
 	input RESET,
 	input [7:0] sw,
 	output reg [3:0] note,
-	output reg FREQ,
-	output [7:0] Led
+	output reg FREQ
 );
 
-odetojoy Song(
-	.RESET(RESET),
-	.CLK(CLK),
-	.note(note);
-)
+`include "parameters.v"
 
 // Frequency clocks
 wire CLK_C4;
@@ -45,35 +39,35 @@ always @ (posedge CLK or posedge RESET) begin
 		note <= none;
 		FREQ <= 0;
 	end
-	else if (sw[C4]) begin
+	else if (sw[7]) begin
 		note <= C4;
 		FREQ <= CLK_C4;
 	end
-	else if (sw[D]) begin
+	else if (sw[6]) begin
 		note <= D;
 		FREQ <= CLK_D;
 	end
-	else if (sw[E]) begin
+	else if (sw[5]) begin
 		note <= E;
 		FREQ <= CLK_E;
 	end 
-	else if (sw[F]) begin
+	else if (sw[4]) begin
 		note <= F;
 		FREQ <= CLK_F;
 	end
-	else if (sw[G]) begin
+	else if (sw[3]) begin
 		note <= G;
 		FREQ <= CLK_G;
 	end
-	else if (sw[A]) begin
+	else if (sw[2]) begin
 		note <= A;
 		FREQ <= CLK_A;
 	end
-	else if (sw[B]) begin
+	else if (sw[1]) begin
 		note <= B;
 		FREQ <= CLK_B;
 	end
-	else if (sw[C5]) begin
+	else if (sw[0]) begin
 		note <= C5;
 		FREQ <= CLK_C5;
 	end

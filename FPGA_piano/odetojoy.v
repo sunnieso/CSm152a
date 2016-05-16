@@ -6,8 +6,10 @@ module odetojoy (
 	input RESET,
 	input [7:0] sw,
 	output reg FREQ,
-	output [7:0] Led
+	output reg [7:0] Led
 );
+
+`include "parameters.v"
 
 wire [3:0] note;
 
@@ -16,9 +18,8 @@ piano myPiano (
 	.RESET(RESET),
 	.sw(sw),
 	.note(note),
-	.FREQ(FREQ),
-	.Led(Led)
-)
+	.FREQ(FREQ)
+);
 
 // States
 reg [5:0] state;
@@ -44,9 +45,9 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b001101: state <= (note == none) ? state + 1'b1 : state;
 			6'b001110: state <= (note == D) ? state + 1'b1 : state;
 			6'b001111: state <= (note == none) ? state + 1'b1 : state;
-			6'b010000: state <= (note == C) ? state + 1'b1 : state;
+			6'b010000: state <= (note == C4) ? state + 1'b1 : state;
 			6'b010001: state <= (note == none) ? state + 1'b1 : state;
-			6'b010010: state <= (note == C) ? state + 1'b1 : state;
+			6'b010010: state <= (note == C4) ? state + 1'b1 : state;
 			6'b010011: state <= (note == none) ? state + 1'b1 : state;
 			6'b010100: state <= (note == D) ? state + 1'b1 : state;
 			6'b010101: state <= (note == none) ? state + 1'b1 : state;
@@ -84,10 +85,10 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b001101: Led <= _E;
 			6'b001110: Led <= _D;
 			6'b001111: Led <= _D;
-			6'b010000: Led <= _C;
-			6'b010001: Led <= _C;
-			6'b010010: Led <= _C;
-			6'b010011: Led <= _C;
+			6'b010000: Led <= _C4;
+			6'b010001: Led <= _C4;
+			6'b010010: Led <= _C4;
+			6'b010011: Led <= _C4;
 			6'b010100: Led <= _D;
 			6'b010101: Led <= _D;
 			6'b010110: Led <= _E;
