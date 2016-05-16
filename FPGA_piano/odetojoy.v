@@ -4,22 +4,11 @@
 module odetojoy (
 	input CLK,
 	input RESET,
-	input [7:0] sw,
-	output reg FREQ,
+	input [3:0] note,
 	output reg [7:0] Led
 );
 
 `include "parameters.v"
-
-wire [3:0] note;
-
-piano myPiano (
-	.CLK(CLK),
-	.RESET(RESET),
-	.sw(sw),
-	.note(note),
-	.FREQ(FREQ)
-);
 
 // States
 reg [5:0] state;

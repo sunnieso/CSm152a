@@ -15,7 +15,7 @@ module piano_tb;
 	wire [7:0] Led;
 
 	// Instantiate the Unit Under Test (UUT)
-	odetojoy uut (
+	piano uut (
 		.CLK(CLK), 
 		.RESET(RESET), 
 		.sw(sw),

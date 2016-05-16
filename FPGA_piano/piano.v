@@ -1,12 +1,14 @@
 `timescale 1ns / 1ps
 `include "freq.v"
+`include "notes.v"
+`include "odetojoy.v"
 
 module piano (
 	input CLK,
 	input RESET,
 	input [7:0] sw,
-	output reg [3:0] note,
-	output reg FREQ
+	output reg FREQ,
+	output reg [7:0] Led
 );
 
 `include "parameters.v"
@@ -21,9 +23,9 @@ wire CLK_A;
 wire CLK_B;
 wire CLK_C5;
 
-ClockManager Frequencies(
-	.RESET(RESET),
+clockManager freqs(
 	.CLK(CLK),
+	.RESET(RESET),
 	.CLK_C4(CLK_C4),
 	.CLK_D(CLK_D),
 	.CLK_E(CLK_E),
@@ -35,46 +37,44 @@ ClockManager Frequencies(
 );
 
 always @ (posedge CLK or posedge RESET) begin
-	if (RESET) begin
-		note <= none;
+	if (RESET)
 		FREQ <= 0;
-	end
-	else if (sw[7]) begin
-		note <= C4;
+	else if (sw[7])
 		FREQ <= CLK_C4;
-	end
-	else if (sw[6]) begin
-		note <= D;
+	else if (sw[6])
 		FREQ <= CLK_D;
-	end
-	else if (sw[5]) begin
-		note <= E;
+	else if (sw[5])
 		FREQ <= CLK_E;
-	end 
-	else if (sw[4]) begin
-		note <= F;
+	else if (sw[4])
 		FREQ <= CLK_F;
-	end
-	else if (sw[3]) begin
-		note <= G;
+	else if (sw[3])
 		FREQ <= CLK_G;
-	end
-	else if (sw[2]) begin
-		note <= A;
+	else if (sw[2])
 		FREQ <= CLK_A;
-	end
-	else if (sw[1]) begin
-		note <= B;
+	else if (sw[1])
 		FREQ <= CLK_B;
-	end
-	else if (sw[0]) begin
-		note <= C5;
+	else if (sw[0])
 		FREQ <= CLK_C5;
-	end
-	else begin
-		note <= none;
+	else
 		FREQ <= 0;
-	end
 end
+
+// Extract note from switches
+wire [3:0] note;
+
+notes notes(
+	.CLK(CLK),
+	.RESET(RESET),
+	.sw(sw),
+	.note(note)
+);
+
+// Show ode to joy instructions on LEDs
+odetojoy song (
+	.CLK(CLK),
+	.RESET(RESET),
+	.note(note),
+	.Led(Led)
+);
 
 endmodule

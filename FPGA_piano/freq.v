@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module ClockManager(    // Clock manager that outputs all clock signals.
+module clockManager(    // Clock manager that outputs all clock signals.
 	input CLK,
 	input RESET,
 	output reg CLK_C4,	// 261.63 ==> 382219
