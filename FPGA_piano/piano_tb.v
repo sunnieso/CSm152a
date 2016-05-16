@@ -27,6 +27,7 @@ module piano_tb;
 		// Initialize Inputs
 		CLK = 1;
 		RESET = 1;
+		sw = 8'b0;
 
 		// Wait 100 ns for global reset to finish
 		#100 RESET = 0;
