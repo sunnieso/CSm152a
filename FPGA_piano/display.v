@@ -1,5 +1,13 @@
 `timescale 1ns / 1ps
 
+/*
+Seven segment display:
+ AAA
+F   B
+ GGG
+E   C
+ DDD    P
+*/
 module segDisplay(
 	input [3:0] note,
 	output reg [7:0] seg,
