@@ -54,7 +54,7 @@ end
 
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
-		Led <= _E;
+		Led <= 8'b0;
 	else begin
 		case (state)
 			6'b000000: Led <= _E;
@@ -88,6 +88,7 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b011100: Led <= _D;
 			6'b011101: Led <= _D;
 			6'b011110: Led <= _E;
+			default: Led <= 8'b0;
 		endcase
 	end
 end

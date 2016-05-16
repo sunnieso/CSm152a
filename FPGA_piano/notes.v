@@ -31,3 +31,5 @@ always @ (posedge CLK or posedge RESET) begin
 	else
 		note <= none;
 end
+
+endmodule

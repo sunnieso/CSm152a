@@ -8,7 +8,7 @@ module piano (
 	input RESET,
 	input [7:0] sw,
 	output reg FREQ,
-	output reg [7:0] Led
+	output [7:0] Led
 );
 
 `include "parameters.v"
