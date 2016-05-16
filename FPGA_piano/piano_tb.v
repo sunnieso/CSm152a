@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-`include "odetojoy.v"
+`include "piano.v"
 // 7  6 5 4 3 2 1 0
 // C4 D E F G A B C4
 
@@ -13,20 +13,25 @@ module piano_tb;
 	// Outputs
 	wire FREQ;
 	wire [7:0] Led;
+	wire [7:0] seg,
+	wire [3:0] an
 
 	// Instantiate the Unit Under Test (UUT)
-	odetojoy uut (
+	piano uut (
 		.CLK(CLK), 
 		.RESET(RESET), 
 		.sw(sw),
 		.FREQ(FREQ),
-		.Led(Led)
+		.Led(Led),
+		.seg(seg),
+		.an(an)
 	);
 
 	initial begin
 		// Initialize Inputs
 		CLK = 1;
 		RESET = 1;
+		sw = 8'b0;
 
 		// Wait 100 ns for global reset to finish
 		#100 RESET = 0;

@@ -1,24 +1,13 @@
 `timescale 1ns / 1ps
-`include "piano.v"
 
 module odetojoy (
 	input CLK,
 	input RESET,
-	input [7:0] sw,
-	output reg FREQ,
-	output [7:0] Led
+	input [3:0] note,
+	output reg [7:0] Led
 );
 
-wire [3:0] note;
-
-piano myPiano (
-	.CLK(CLK),
-	.RESET(RESET),
-	.sw(sw),
-	.note(note),
-	.FREQ(FREQ),
-	.Led(Led)
-)
+`include "parameters.v"
 
 // States
 reg [5:0] state;
@@ -44,9 +33,9 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b001101: state <= (note == none) ? state + 1'b1 : state;
 			6'b001110: state <= (note == D) ? state + 1'b1 : state;
 			6'b001111: state <= (note == none) ? state + 1'b1 : state;
-			6'b010000: state <= (note == C) ? state + 1'b1 : state;
+			6'b010000: state <= (note == C4) ? state + 1'b1 : state;
 			6'b010001: state <= (note == none) ? state + 1'b1 : state;
-			6'b010010: state <= (note == C) ? state + 1'b1 : state;
+			6'b010010: state <= (note == C4) ? state + 1'b1 : state;
 			6'b010011: state <= (note == none) ? state + 1'b1 : state;
 			6'b010100: state <= (note == D) ? state + 1'b1 : state;
 			6'b010101: state <= (note == none) ? state + 1'b1 : state;
@@ -65,7 +54,7 @@ end
 
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
-		Led <= _E;
+		Led <= 8'b0;
 	else begin
 		case (state)
 			6'b000000: Led <= _E;
@@ -84,10 +73,10 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b001101: Led <= _E;
 			6'b001110: Led <= _D;
 			6'b001111: Led <= _D;
-			6'b010000: Led <= _C;
-			6'b010001: Led <= _C;
-			6'b010010: Led <= _C;
-			6'b010011: Led <= _C;
+			6'b010000: Led <= _C4;
+			6'b010001: Led <= _C4;
+			6'b010010: Led <= _C4;
+			6'b010011: Led <= _C4;
 			6'b010100: Led <= _D;
 			6'b010101: Led <= _D;
 			6'b010110: Led <= _E;
@@ -99,6 +88,7 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b011100: Led <= _D;
 			6'b011101: Led <= _D;
 			6'b011110: Led <= _E;
+			default: Led <= 8'b0;
 		endcase
 	end
 end
