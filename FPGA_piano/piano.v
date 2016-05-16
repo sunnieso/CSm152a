@@ -8,7 +8,9 @@ module piano (
 	input RESET,
 	input [7:0] sw,
 	output reg FREQ,
-	output [7:0] Led
+	output [7:0] Led,
+	output [7:0] seg,
+	output [3:0] an
 );
 
 `include "parameters.v"
@@ -76,5 +78,12 @@ odetojoy song (
 	.note(note),
 	.Led(Led)
 );
+
+// Show notes on display 
+segDisplay display (
+	.note(note),
+	.seg(seg),
+	.an(an)
+)
 
 endmodule

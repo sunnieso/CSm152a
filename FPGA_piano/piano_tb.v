@@ -13,6 +13,8 @@ module piano_tb;
 	// Outputs
 	wire FREQ;
 	wire [7:0] Led;
+	wire [7:0] seg,
+	wire [3:0] an
 
 	// Instantiate the Unit Under Test (UUT)
 	piano uut (
@@ -20,7 +22,9 @@ module piano_tb;
 		.RESET(RESET), 
 		.sw(sw),
 		.FREQ(FREQ),
-		.Led(Led)
+		.Led(Led),
+		.seg(seg),
+		.an(an)
 	);
 
 	initial begin
