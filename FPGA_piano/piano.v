@@ -2,6 +2,7 @@
 `include "freq.v"
 `include "notes.v"
 `include "odetojoy.v"
+`include "display.v"
 
 module piano (
 	input CLK,
