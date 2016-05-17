@@ -7,6 +7,7 @@
 module piano (
 	input CLK,
 	input RESET,
+	input MODE,			// toggle button: switch between autoplay and lesson modes.
 	input [7:0] sw,
 	output reg FREQ,
 	output [7:0] Led,
@@ -15,6 +16,13 @@ module piano (
 );
 
 `include "parameters.v"
+
+// Mode: 1 = autoplay, 0 = lesson mode
+reg mode;
+always @ (posedge MODE or posedge RESET) begin
+	if (RESET)		mode <= 1'b0;
+	else 			mode <= ~mode;
+end
 
 // Frequency clocks
 wire CLK_C4;
@@ -42,24 +50,46 @@ clockManager freqs(
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
 		FREQ <= 0;
-	else if (sw[7])
-		FREQ <= CLK_C4;
-	else if (sw[6])
-		FREQ <= CLK_D;
-	else if (sw[5])
-		FREQ <= CLK_E;
-	else if (sw[4])
-		FREQ <= CLK_F;
-	else if (sw[3])
-		FREQ <= CLK_G;
-	else if (sw[2])
-		FREQ <= CLK_A;
-	else if (sw[1])
-		FREQ <= CLK_B;
-	else if (sw[0])
-		FREQ <= CLK_C5;
-	else
-		FREQ <= 0;
+	else if (mode == 1'b1) begin	// auto play mode
+		if (auto_note == C4)
+			FREQ <= CLK_C4;
+		else if (auto_note == D)
+			FREQ <= CLK_D;
+		else if (auto_note == E)
+			FREQ <= CLK_E;
+		else if (auto_note == F)
+			FREQ <= CLK_F;
+		else if (auto_note == G)
+			FREQ <= CLK_G;
+		else if (auto_note == A)
+			FREQ <= CLK_A;
+		else if (auto_note == B)
+			FREQ <= CLK_B;
+		else if (auto_note == C5)
+			FREQ <= CLK_C5;
+		else // none
+			FREQ <= 0;
+	end 
+	else begin	// lesson mode
+		if (sw[7])
+			FREQ <= CLK_C4;
+		else if (sw[6])
+			FREQ <= CLK_D;
+		else if (sw[5])
+			FREQ <= CLK_E;
+		else if (sw[4])
+			FREQ <= CLK_F;
+		else if (sw[3])
+			FREQ <= CLK_G;
+		else if (sw[2])
+			FREQ <= CLK_A;
+		else if (sw[1])
+			FREQ <= CLK_B;
+		else if (sw[0])
+			FREQ <= CLK_C5;
+		else
+			FREQ <= 0;
+	end
 end
 
 // Extract note from switches
@@ -80,11 +110,21 @@ odetojoy song (
 	.Led(Led)
 );
 
+// Extract note from autoplay
+wire [3:0] auto_note;
+
+odetojoyAUTO autoSong (
+	.CLK(CLK),
+	.RESET(RESET),
+	.auto_note(auto_note)	// this is an output
+	//.Led(Led)
+);
+
 // Show notes on display 
 segDisplay display (
 	.note(note),
 	.seg(seg),
 	.an(an)
-)
+);
 
 endmodule
