@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
+<<<<<<< HEAD
 
 /*
+
 Seven segment display:
  AAA
 F   B
