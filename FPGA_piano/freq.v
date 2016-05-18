@@ -31,7 +31,7 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_C4 <= 0;
 	end
 	else begin 
-		if (cnt_CLK_C4 == 18'b101_0011_0010_0011_001) begin  /* for synthesis */
+		if (cnt_CLK_C4 == 18'b10_1110_1010_1000_0101) begin  /* for synthesis */
 		//if (cnt_CLK_C4 == 18'b000_0000_0000_0000_001) begin /* for testbench */
 			cnt_CLK_C4 <= 18'b0;
 			CLK_C4 <= ~CLK_C4;
