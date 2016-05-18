@@ -14,26 +14,26 @@ module clockManager(    // Clock manager that outputs all clock signals.
 	);
 
 
-reg [18:0] cnt_CLK_C4;
-reg [18:0] cnt_CLK_D;
-reg [18:0] cnt_CLK_E;
-reg [18:0] cnt_CLK_F;
+reg [17:0] cnt_CLK_C4;
+reg [17:0] cnt_CLK_D;
+reg [17:0] cnt_CLK_E;
+reg [17:0] cnt_CLK_F;
 
-reg [17:0] cnt_CLK_G;
-reg [17:0] cnt_CLK_A;
-reg [17:0] cnt_CLK_B;
-reg [17:0] cnt_CLK_C5;
+reg [16:0] cnt_CLK_G;
+reg [16:0] cnt_CLK_A;
+reg [16:0] cnt_CLK_B;
+reg [16:0] cnt_CLK_C5;
 
 // CLK_C4
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_C4 <= 19'b0;
+		cnt_CLK_C4 <= 18'b0;
 		CLK_C4 <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_C4 == 19'b101_0011_0010_0011_0010) begin  /* for synthesis */
-		if (cnt_CLK_C4 == 19'b000_0000_0000_0000_0010) begin /* for testbench */
-			cnt_CLK_C4 <= 19'b0;
+		if (cnt_CLK_C4 == 18'b101_0011_0010_0011_001) begin  /* for synthesis */
+		//if (cnt_CLK_C4 == 18'b000_0000_0000_0000_001) begin /* for testbench */
+			cnt_CLK_C4 <= 18'b0;
 			CLK_C4 <= ~CLK_C4;
 		end
 		else begin
@@ -46,13 +46,13 @@ end
 // CLK_D
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_D <= 19'b0;
+		cnt_CLK_D <= 18'b0;
 		CLK_D <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_D == 19'b101_0011_0010_0011_0010 ) begin   /* for synthesis */
-		if (cnt_CLK_D == 19'b000_0000_0000_0000_0100) begin /* for testbench */
-			cnt_CLK_D <= 19'b0;
+		if (cnt_CLK_D == 18'b101_0011_0010_0011_001 ) begin   /* for synthesis */
+		//if (cnt_CLK_D == 18'b000_0000_0000_0000_010) begin /* for testbench */
+			cnt_CLK_D <= 18'b0;
 			CLK_D <= ~CLK_D;
 		end
 		else begin
@@ -66,13 +66,13 @@ end
 // CLK_E
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_E <= 19'b0;
+		cnt_CLK_E <= 18'b0;
 		CLK_E <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_E == 19'b100_1010_0001_0000_1010 ) begin  /* for synthesis */
-		if (cnt_CLK_E == 19'b000_0000_0000_0000_1000) begin /* for testbench */
-			cnt_CLK_E <= 19'b0;
+		if (cnt_CLK_E == 18'b100_1010_0001_0000_101 ) begin  /* for synthesis */
+		//if (cnt_CLK_E == 18'b000_0000_0000_0000_100) begin /* for testbench */
+			cnt_CLK_E <= 18'b0;
 			CLK_E <= ~CLK_E;
 		end
 		else begin
@@ -85,13 +85,13 @@ end
 // CLK_F
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_F <= 19'b0;
+		cnt_CLK_F <= 18'b0;
 		CLK_F <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_F == 19'b100_0101_1110_1000_1000 ) begin   /* for synthesis */
-		if (cnt_CLK_F == 19'b000_0000_0000_0001_0000) begin /* for testbench */
-			cnt_CLK_F <= 19'b0;
+		if (cnt_CLK_F == 18'b100_0101_1110_1000_100 ) begin   /* for synthesis */
+		//if (cnt_CLK_F == 18'b000_0000_0000_0001_000) begin /* for testbench */
+			cnt_CLK_F <= 18'b0;
 			CLK_F <= ~CLK_F;
 		end
 		else begin
@@ -105,13 +105,13 @@ end
 // CLK_G
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_G <= 18'b0;
+		cnt_CLK_G <= 17'b0;
 		CLK_G <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_G == 18'b11_1110_0100_0111_1110 ) begin  /* for synthesis */
-		if (cnt_CLK_G == 18'b00_0000_0000_0010_0000) begin /* for testbench */
-			cnt_CLK_G <= 18'b0;
+		if (cnt_CLK_G == 17'b11_1110_0100_0111_111 ) begin  /* for synthesis */
+		//if (cnt_CLK_G == 17'b00_0000_0000_0010_000) begin /* for testbench */
+			cnt_CLK_G <= 17'b0;
 			CLK_G <= ~CLK_G;
 		end
 		else begin
@@ -124,13 +124,13 @@ end
 // CLK_A
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_A <= 18'b0;
+		cnt_CLK_A <= 17'b0;
 		CLK_A <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_A == 18'b11_0111_0111_1100_1001) begin  /* for synthesis */
-		if (cnt_CLK_A == 18'b00_0000_0000_0100_0000) begin /* for testbench */
-			cnt_CLK_A <= 18'b0;
+		if (cnt_CLK_A == 17'b11_0111_0111_1100_100) begin  /* for synthesis */
+		//if (cnt_CLK_A == 17'b00_0000_0000_0100_000) begin /* for testbench */
+			cnt_CLK_A <= 17'b0;
 			CLK_A <= ~CLK_A;
 		end
 		else begin
@@ -143,13 +143,13 @@ end
 // CLK_B
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_B <= 18'b0;
+		cnt_CLK_B <= 17'b0;
 		CLK_B <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_B == 18'b11_0001_0110_1011_1101 ) begin  /* for synthesis */
-		if (cnt_CLK_B == 18'b00_0000_0000_1000_0000) begin /* for testbench */
-			cnt_CLK_B <= 18'b0;
+		if (cnt_CLK_B == 17'b11_0001_0110_1011_110 ) begin  /* for synthesis */
+		//if (cnt_CLK_B == 17'b00_0000_0000_1000_000) begin /* for testbench */
+			cnt_CLK_B <= 17'b0;
 			CLK_B <= ~CLK_B;
 		end
 		else begin
@@ -163,13 +163,13 @@ end
 // CLK_C5
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_CLK_C5 <= 18'b0;
+		cnt_CLK_C5 <= 17'b0;
 		CLK_C5 <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_C5 == 18'b10_1110_1010_1110_0100) begin  /* for synthesis */
-		if (cnt_CLK_C5 == 18'b00_0000_0001_0000_0000) begin /* for testbench */
-			cnt_CLK_C5 <= 18'b0;
+		if (cnt_CLK_C5 == 17'b10_1110_1010_1110_010) begin  /* for synthesis */
+		//if (cnt_CLK_C5 == 1'b00_0000_0001_0000_000) begin /* for testbench */
+			cnt_CLK_C5 <= 17'b0;
 			CLK_C5 <= ~CLK_C5;
 		end
 		else begin
