@@ -11,8 +11,8 @@ module clockManager(    // Clock manager that outputs all clock signals.
 	output reg CLK_A,   // 440.00 ==> 227272
 	output reg CLK_B,	// 493.88 ==> 202429
 	output reg CLK_C5, 	// 523.25 ==> 191204
-	output reg QUARTER_BEAT,
-	output reg EIGHTH_BEAT
+	output reg QUARTER_BEAT
+	//output reg EIGHTH_BEAT
 	);
 
 /* tempo=110 ==>
@@ -30,7 +30,7 @@ reg [16:0] cnt_CLK_A;
 reg [16:0] cnt_CLK_B;
 reg [16:0] cnt_CLK_C5;
 reg [9:0] cnt_QUARTER;
-reg [8:0] cnt_EIGHTH;
+//reg [8:0] cnt_EIGHTH;
 
 // CLK_C4
 always @ (posedge CLK or posedge RESET) begin
@@ -207,14 +207,15 @@ always @ (posedge CLK or posedge RESET) begin
 end
 
 // EIGHTH_NOTE
+/*
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
 		cnt_EIGHTH <= 10'b0;
 		EIGHTH_BEAT <= 0;
 	end
 	else begin 
-		if (cnt_EIGHTH == 9'b1_0001_0000) begin  /* for synthesis */
-		//if (cnt_EIGHTH == 9'b0_0000_0100) begin /* for testbench */
+		if (cnt_EIGHTH == 9'b1_0001_0000) begin  for synthesis 
+		if (cnt_EIGHTH == 9'b0_0000_0100) begin  for testbench 
 			cnt_EIGHTH <= 10'b0;
 			EIGHTH_BEAT <= ~EIGHTH_BEAT;
 		end
@@ -224,5 +225,5 @@ always @ (posedge CLK or posedge RESET) begin
 		end
 	end
 end
-
+*/
 endmodule
