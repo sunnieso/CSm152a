@@ -33,6 +33,8 @@ wire CLK_G;
 wire CLK_A;
 wire CLK_B;
 wire CLK_C5;
+wire QUARTER_BEAT;
+wire EIGHTH_BEAT;
 
 clockManager freqs(
 	.CLK(CLK),
@@ -44,7 +46,9 @@ clockManager freqs(
 	.CLK_G(CLK_G),
 	.CLK_A(CLK_A),
 	.CLK_B(CLK_B),
-	.CLK_C5(CLK_C5)
+	.CLK_C5(CLK_C5),
+	.QUARTER_BEAT(QUARTER_BEAT),
+	.EIGHTH_BEAT(EIGHTH_BEAT)
 );
 
 always @ (posedge CLK or posedge RESET) begin
@@ -92,6 +96,18 @@ always @ (posedge CLK or posedge RESET) begin
 	end
 end
 
+// Extract note from autoplay
+wire [3:0] auto_note;
+
+odetojoyAUTO autoSong (
+	.CLK(CLK),
+	.RESET(RESET),
+	._QUARTER_BEAT(QUARTER_BEAT),
+	._EIGHTH_BEAT(EIGHTH_BEAT),
+	.note(auto_note)	// this is an output
+	//.Led(Led)
+);
+
 // Extract note from switches
 wire [3:0] note;
 
@@ -108,16 +124,6 @@ odetojoy song (
 	.RESET(RESET),
 	.note(note),
 	.Led(Led)
-);
-
-// Extract note from autoplay
-wire [3:0] auto_note;
-
-odetojoyAUTO autoSong (
-	.CLK(CLK),
-	.RESET(RESET),
-	.auto_note(auto_note)	// this is an output
-	//.Led(Led)
 );
 
 // Show notes on display 
