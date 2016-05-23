@@ -9,17 +9,20 @@ module piano_tb;
 	reg CLK;
 	reg RESET;
 	reg [7:0] sw;
-
+	reg mode;
+	
 	// Outputs
 	wire FREQ;
 	wire [7:0] Led;
-	wire [7:0] seg,
-	wire [3:0] an
+	wire [7:0] seg;
+	wire [3:0] an;
+
 
 	// Instantiate the Unit Under Test (UUT)
 	piano uut (
 		.CLK(CLK), 
 		.RESET(RESET), 
+		.MODE(mode),
 		.sw(sw),
 		.FREQ(FREQ),
 		.Led(Led),
@@ -32,10 +35,12 @@ module piano_tb;
 		CLK = 1;
 		RESET = 1;
 		sw = 8'b0;
-
+		mode = 1;
+		
 		// Wait 100 ns for global reset to finish
 		#100 RESET = 0;
-
+		#5 mode = 0;
+		#5 mode = 1;
 		#50 sw[5] = 1;
 		#50 sw[5] = 0;
 		#50 sw[5] = 1;
@@ -69,6 +74,9 @@ module piano_tb;
 	end
 
   always #1 CLK = ~CLK;
+
+ // always #5 mode = ~mode;
+
 
   initial
 		#2000 $finish;
