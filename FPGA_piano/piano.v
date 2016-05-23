@@ -21,7 +21,7 @@ module piano (
 reg mode;
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)		mode <= 1'b0;
-	else if (MODE)		mode <= ~mode;
+	else if (MODE)		mode <= 1'b1;
 	else 		mode <= mode;
 end
 
@@ -104,12 +104,11 @@ wire [3:0] auto_note;
 wire [7:0] auto_Led;
 
 odetojoyAUTO autoSong (
-	.CLK(CLK),
 	.RESET(RESET),
 	._QUARTER_BEAT(QUARTER_BEAT),
 	//._EIGHTH_BEAT(EIGHTH_BEAT),
-	.note(auto_note)	// this is an output
-	.Led(Led)
+	.auto_note(auto_note),	// this is an output
+	.Led(auto_Led)
 );
 
 // Extract note from switches

@@ -1,11 +1,10 @@
 `timescale 1ns / 1ps
 
 module odetojoyAUTO (
-	input CLK,
 	input RESET,
 	input _QUARTER_BEAT,
 	//input _EIGHTH_BEAT,
-	output [3:0] note,
+	output [3:0] auto_note,
 	output reg [7:0] Led
 );
 
@@ -13,6 +12,9 @@ module odetojoyAUTO (
 
 // States
 reg [5:0] state;
+reg [3:0] note;
+
+assign auto_note = note;
 
 // Next state
 always @ (posedge _QUARTER_BEAT or posedge RESET) begin
