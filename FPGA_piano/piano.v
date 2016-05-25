@@ -27,8 +27,6 @@ always @ (posedge CLK or posedge RESET) begin
 end
 
 wire [3:0] note;
-
-assign Led = mode ? auto_Led : play_Led;
 assign note = mode ? auto_note : play_note;
 
 // Frequency clocks
@@ -105,20 +103,17 @@ end
 
 // Extract note from autoplay
 wire [3:0] auto_note;
-wire [7:0] auto_Led;
 
 odetojoyAUTO autoSong (
 	.RESET(RESET),
 	.MODE(MODE),
 	._QUARTER_BEAT(QUARTER_BEAT),
 	//._EIGHTH_BEAT(EIGHTH_BEAT),
-	.auto_note(auto_note),	// this is an output
-	.Led(auto_Led)
+	.auto_note(auto_note)
 );
 
 // Extract note from switches
 wire [3:0] play_note;
-wire [7:0] play_Led;
 
 notes notes(
 	.CLK(CLK),
@@ -131,8 +126,7 @@ notes notes(
 odetojoy song (
 	.CLK(CLK),
 	.RESET(RESET),
-	.note(note),
-	.Led(play_Led)
+	.note(note)
 );
 
 // Show notes on display 
@@ -143,7 +137,7 @@ segDisplay display (
 );
 
 // Show led output
-ledDisplay ledDisplay (
+ledOutput ledDisplay (
 	.note(note),
 	.Led(Led)
 );

@@ -4,6 +4,8 @@ module ledOutput(
 	input [3:0] note,
 	output reg [7:0] Led
 	);
+	
+	`include "parameters.v"
 
 	// ASYNCHRONOUS assign led display based on the current note
 	always @ (note) begin
