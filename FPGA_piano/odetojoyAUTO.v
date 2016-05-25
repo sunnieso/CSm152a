@@ -5,8 +5,7 @@ module odetojoyAUTO (
 	input MODE,
 	input _QUARTER_BEAT,
 	//input _EIGHTH_BEAT,
-	output [3:0] auto_note,
-	output reg [7:0] Led
+	output [3:0] auto_note
 );
 
 `include "parameters.v"

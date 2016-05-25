@@ -3,8 +3,7 @@
 module odetojoy (
 	input CLK,
 	input RESET,
-	input [3:0] note,
-	output reg [7:0] Led
+	input [3:0] note
 );
 
 `include "parameters.v"
