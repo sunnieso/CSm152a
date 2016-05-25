@@ -138,12 +138,6 @@ segDisplay display (
 	.note(note),
 	.seg(seg),
 	.an(an)
-);
-
-// Show led output
-ledOutput ledDisplay (
-	.note(note),
-	.Led(Led)
-);
+); 
 
 endmodule

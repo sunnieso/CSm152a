@@ -5,8 +5,8 @@ module odetojoyAUTO (
 	input MODE,
 	input _QUARTER_BEAT,
 	//input _EIGHTH_BEAT,
-	output [3:0] note,
-	output [7:0] Led
+	output reg [3:0] note,
+	output reg [7:0] Led
 );
 
 `include "parameters.v"
@@ -21,7 +21,7 @@ always @ (posedge _QUARTER_BEAT or posedge RESET) begin
 	else if (MODE)
 		state <= 6'b0;
 	else begin
-		if (state == 6'b100000)
+		if (state == 6'b111111)
 			state <= 6'b0;
 		else
 			state <= state + 1'b1;
