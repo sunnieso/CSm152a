@@ -25,7 +25,10 @@ always @ (posedge CLK or posedge RESET) begin
 	else 		mode <= mode;
 end
 
+wire [3:0] note;
+
 assign Led = mode ? auto_Led : play_Led;
+assign note = mode ? auto_note : play_note;
 
 // Frequency clocks
 wire CLK_C4;
@@ -112,14 +115,14 @@ odetojoyAUTO autoSong (
 );
 
 // Extract note from switches
-wire [3:0] note;
+wire [3:0] play_note;
 wire [7:0] play_Led;
 
 notes notes(
 	.CLK(CLK),
 	.RESET(RESET),
 	.sw(sw),
-	.note(note)
+	.note(play_note)
 );
 
 // Show ode to joy instructions on LEDs
@@ -135,6 +138,12 @@ segDisplay display (
 	.note(note),
 	.seg(seg),
 	.an(an)
+);
+
+// Show led output
+ledDisplay ledDisplay (
+	.note(note),
+	.Led(Led)
 );
 
 endmodule
