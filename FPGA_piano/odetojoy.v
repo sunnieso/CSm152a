@@ -51,7 +51,7 @@ always @ (posedge CLK or posedge RESET) begin
 		endcase
 	end
 end
-
+/*
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
 		Led <= 8'b0;
@@ -91,6 +91,6 @@ always @ (posedge CLK or posedge RESET) begin
 			default: Led <= 8'b0;
 		endcase
 	end
-end
+end */
 
 endmodule

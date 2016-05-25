@@ -100,7 +100,7 @@ always @(state) begin
 		default: note = none;
 	endcase
 end
-
+/*
 always @ (state) begin
 	case (state)
 		6'b000000: Led = 8'b0;
@@ -138,6 +138,6 @@ always @ (state) begin
 		6'b100000: Led = 8'b0;
 		default: Led = 8'b11111111;
 	endcase
-end
+end */
 
 endmodule
