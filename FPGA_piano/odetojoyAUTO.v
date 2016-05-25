@@ -2,6 +2,7 @@
 
 module odetojoyAUTO (
 	input RESET,
+	input MODE,
 	input _QUARTER_BEAT,
 	//input _EIGHTH_BEAT,
 	output [3:0] auto_note,

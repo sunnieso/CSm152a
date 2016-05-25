@@ -108,6 +108,7 @@ wire [7:0] auto_Led;
 
 odetojoyAUTO autoSong (
 	.RESET(RESET),
+	.MODE(MODE),
 	._QUARTER_BEAT(QUARTER_BEAT),
 	//._EIGHTH_BEAT(EIGHTH_BEAT),
 	.auto_note(auto_note),	// this is an output

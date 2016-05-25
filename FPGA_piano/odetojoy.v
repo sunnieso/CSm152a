@@ -48,6 +48,7 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b011100: state <= (note == D) ? state + 1'b1 : state;
 			6'b011101: state <= (note == none) ? state + 1'b1 : state;
 			6'b011110: state <= 6'b0;
+			default: state <= 6'b0;
 		endcase
 	end
 end
