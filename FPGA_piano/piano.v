@@ -3,7 +3,6 @@
 `include "notes.v"
 `include "odetojoy.v"
 `include "display.v"
-`include "led.v"
 
 module piano (
 	input CLK,
@@ -28,6 +27,7 @@ end
 
 wire [3:0] note;
 assign note = mode ? auto_note : play_note;
+assign Led = mode ? auto_Led : play_Led;
 
 // Frequency clocks
 wire CLK_C4;
@@ -103,17 +103,20 @@ end
 
 // Extract note from autoplay
 wire [3:0] auto_note;
+wire [7:0] auto_Led;
 
 odetojoyAUTO autoSong (
 	.RESET(RESET),
 	.MODE(MODE),
 	._QUARTER_BEAT(QUARTER_BEAT),
 	//._EIGHTH_BEAT(EIGHTH_BEAT),
-	.auto_note(auto_note)
+	.note(auto_note),
+	.Led(auto_Led)
 );
 
 // Extract note from switches
 wire [3:0] play_note;
+wire [7:0] play_Led;
 
 notes notes(
 	.CLK(CLK),
@@ -126,7 +129,8 @@ notes notes(
 odetojoy song (
 	.CLK(CLK),
 	.RESET(RESET),
-	.note(note)
+	.note(note),
+	.Led(play_Led)
 );
 
 // Show notes on display 

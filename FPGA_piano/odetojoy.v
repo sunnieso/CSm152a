@@ -3,7 +3,8 @@
 module odetojoy (
 	input CLK,
 	input RESET,
-	input [3:0] note
+	input [3:0] note,
+	output reg [7:0] Led
 );
 
 `include "parameters.v"
@@ -51,7 +52,7 @@ always @ (posedge CLK or posedge RESET) begin
 		endcase
 	end
 end
-/*
+
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
 		Led <= 8'b0;
@@ -91,6 +92,6 @@ always @ (posedge CLK or posedge RESET) begin
 			default: Led <= 8'b0;
 		endcase
 	end
-end */
+end
 
 endmodule

@@ -5,16 +5,14 @@ module odetojoyAUTO (
 	input MODE,
 	input _QUARTER_BEAT,
 	//input _EIGHTH_BEAT,
-	output [3:0] auto_note
+	output [3:0] note,
+	output [7:0] Led
 );
 
 `include "parameters.v"
 
 // States
 reg [5:0] state;
-reg [3:0] note;
-
-assign auto_note = note;
 
 // Next state
 always @ (posedge _QUARTER_BEAT or posedge RESET) begin
@@ -100,44 +98,20 @@ always @(state) begin
 		default: note = none;
 	endcase
 end
-/*
-always @ (state) begin
-	case (state)
-		6'b000000: Led = 8'b0;
-		6'b000001: Led = _E;
-		6'b000010: Led = 8'b0;
-		6'b000011: Led = _E;
-		6'b000100: Led = 8'b0;
-		6'b000101: Led = _F;
-		6'b000110: Led = 8'b0;
-		6'b000111: Led = _G;
-		6'b001000: Led = 8'b0;
-		6'b001001: Led = _G;
-		6'b001010: Led = 8'b0;
-		6'b001011: Led = _F;
-		6'b001100: Led = 8'b0;
-		6'b001101: Led = _E;
-		6'b001110: Led = 8'b0;
-		6'b001111: Led = _D;
-		6'b010000: Led = 8'b0;
-		6'b010001: Led = _C4;
-		6'b010010: Led = 8'b0;
-		6'b010011: Led = _C4;
-		6'b010100: Led = 8'b0;
-		6'b010101: Led = _D;
-		6'b010110: Led = 8'b0;
-		6'b010111: Led = _E;
-		6'b011000: Led = 8'b0;
-		6'b011001: Led = _E;
-		6'b011010: Led = _E;
-		6'b011011: Led = _E;
-		6'b011100: Led = 8'b0;
-		6'b011101: Led = _D;
-		6'b011110: Led = _D;
-		6'b011111: Led = _D;
-		6'b100000: Led = 8'b0;
-		default: Led = 8'b11111111;
-	endcase
-end */
+
+always @ (note) begin
+		case(note)
+			4'h0: Led = _C5;
+			4'h1: Led = _B;
+			4'h2: Led = _A;
+			4'h3: Led = _G;
+			4'h4: Led = _F;
+			4'h5: Led = _E;
+			4'h6: Led = _D;
+			4'h7: Led = _C4;
+			4'h8: Led = 8'b0; // none
+			default: Led = 8'b11111111; 
+		endcase
+	end
 
 endmodule
