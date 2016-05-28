@@ -13,7 +13,7 @@ module odetojoy (
 reg [5:0] state;
 
 always @ (posedge CLK or posedge RESET) begin
-	if (RESET)
+	if (RESET || MODE)
 		state <= 6'b0;
 	else begin
 		case (state)
@@ -45,9 +45,35 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b011001: state <= (note == none) ? state + 1'b1 : state;
 			6'b011010: state <= (note == D) ? state + 1'b1 : state;
 			6'b011011: state <= (note == none) ? state + 1'b1 : state;
-			6'b011100: state <= (note == D) ? state + 1'b1 : state;
+			6'b011100: state <= (note == E) ? state + 1'b1 : state;
 			6'b011101: state <= (note == none) ? state + 1'b1 : state;
-			6'b011110: state <= 6'b0;
+			6'b011110: state <= (note == E) ? state + 1'b1 : state;
+			6'b011111: state <= (note == none) ? state + 1'b1 : state;
+			6'b100000: state <= (note == F) ? state + 1'b1 : state;
+			6'b100001: state <= (note == none) ? state + 1'b1 : state;
+			6'b100010: state <= (note == G) ? state + 1'b1 : state;
+			6'b100011: state <= (note == none) ? state + 1'b1 : state;
+			6'b100100: state <= (note == G) ? state + 1'b1 : state;
+			6'b100101: state <= (note == none) ? state + 1'b1 : state;
+			6'b100110: state <= (note == F) ? state + 1'b1 : state;
+			6'b100111: state <= (note == none) ? state + 1'b1 : state;
+			6'b101000: state <= (note == E) ? state + 1'b1 : state;
+			6'b101001: state <= (note == none) ? state + 1'b1 : state;
+			6'b101010: state <= (note == D) ? state + 1'b1 : state;
+			6'b101011: state <= (note == none) ? state + 1'b1 : state;
+			6'b101100: state <= (note == C4) ? state + 1'b1 : state;
+			6'b101101: state <= (note == none) ? state + 1'b1 : state;
+			6'b101110: state <= (note == C4) ? state + 1'b1 : state;
+			6'b101111: state <= (note == none) ? state + 1'b1 : state;
+			6'b110000: state <= (note == D) ? state + 1'b1 : state;
+			6'b110001: state <= (note == none) ? state + 1'b1 : state;
+			6'b110010: state <= (note == E) ? state + 1'b1 : state;
+			6'b110011: state <= (note == none) ? state + 1'b1 : state;
+			6'b110100: state <= (note == D) ? state + 1'b1 : state;
+			6'b110101: state <= (note == none) ? state + 1'b1 : state;
+			6'b110110: state <= (note == C4) ? state + 1'b1 : state;
+			6'b110111: state <= (note == none) ? state + 1'b1 : state;
+			6'b111000: state <= 6'b0;
 			default: state <= 6'b0;
 		endcase
 	end
@@ -86,9 +112,35 @@ always @ (posedge CLK or posedge RESET) begin
 			6'b011001: Led <= _E;
 			6'b011010: Led <= _D;
 			6'b011011: Led <= _D;
-			6'b011100: Led <= _D;
-			6'b011101: Led <= _D;
+			6'b011100: Led <= _E;
+			6'b011101: Led <= _E;
 			6'b011110: Led <= _E;
+			6'b011111: Led <= _E;
+			6'b100000: Led <= _F;
+			6'b100001: Led <= _F;
+			6'b100010: Led <= _G;
+			6'b100011: Led <= _G;
+			6'b100100: Led <= _G;
+			6'b100101: Led <= _G;
+			6'b100110: Led <= _F;
+			6'b100111: Led <= _F;
+			6'b101000: Led <= _E;
+			6'b101001: Led <= _E;
+			6'b101010: Led <= _D;
+			6'b101011: Led <= _D;
+			6'b101100: Led <= _C4;
+			6'b101101: Led <= _C4;
+			6'b101110: Led <= _C4;
+			6'b101111: Led <= _C4;
+			6'b110000: Led <= _D;
+			6'b110001: Led <= _D;
+			6'b110010: Led <= _E;
+			6'b110011: Led <= _E;
+			6'b110100: Led <= _D;
+			6'b110101: Led <= _D;
+			6'b110110: Led <= _C4;
+			6'b110111: Led <= _C4;
+			6'b111000: Led <= _E;
 			default: Led <= 8'b0;
 		endcase
 	end

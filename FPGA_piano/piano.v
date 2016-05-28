@@ -56,6 +56,65 @@ clockManager freqs(
 	//.EIGHTH_BEAT(EIGHTH_BEAT)
 );
 
+// Debounce switches
+wire [7:0] d_sw;
+
+debounce sw0(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[0]),
+	.D_OUT(d_sw[0]),
+);
+
+debounce sw1(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[1]),
+	.D_OUT(d_sw[1]),
+);
+
+debounce sw2(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[2]),
+	.D_OUT(d_sw[2]),
+);
+
+debounce sw3(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[3]),
+	.D_OUT(d_sw[3]),
+);
+
+debounce sw4(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[4]),
+	.D_OUT(d_sw[]),
+);
+
+debounce sw5(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[5]),
+	.D_OUT(d_sw[5]),
+);
+
+debounce sw6(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[6]),
+	.D_OUT(d_sw[6]),
+);
+
+debounce sw7(
+	.CLK(CLK),
+	.RESET(RESET),
+	.INPUT(sw[7]),
+	.D_OUT(d_sw[7]),
+);
+
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
 		FREQ <= 0;
