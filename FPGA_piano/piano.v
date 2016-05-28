@@ -63,56 +63,56 @@ debounce sw0(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[0]),
-	.D_OUT(d_sw[0]),
+	.D_OUT(d_sw[0])
 );
 
 debounce sw1(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[1]),
-	.D_OUT(d_sw[1]),
+	.D_OUT(d_sw[1])
 );
 
 debounce sw2(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[2]),
-	.D_OUT(d_sw[2]),
+	.D_OUT(d_sw[2])
 );
 
 debounce sw3(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[3]),
-	.D_OUT(d_sw[3]),
+	.D_OUT(d_sw[3])
 );
 
 debounce sw4(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[4]),
-	.D_OUT(d_sw[]),
+	.D_OUT(d_sw[4])
 );
 
 debounce sw5(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[5]),
-	.D_OUT(d_sw[5]),
+	.D_OUT(d_sw[5])
 );
 
 debounce sw6(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[6]),
-	.D_OUT(d_sw[6]),
+	.D_OUT(d_sw[6])
 );
 
 debounce sw7(
 	.CLK(CLK),
 	.RESET(RESET),
 	.INPUT(sw[7]),
-	.D_OUT(d_sw[7]),
+	.D_OUT(d_sw[7])
 );
 
 always @ (posedge CLK or posedge RESET) begin
@@ -188,6 +188,7 @@ notes notes(
 odetojoy song (
 	.CLK(CLK),
 	.RESET(RESET),
+	.MODE(MODE),
 	.note(note),
 	.Led(play_Led)
 );

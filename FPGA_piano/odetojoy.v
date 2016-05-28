@@ -3,6 +3,7 @@
 module odetojoy (
 	input CLK,
 	input RESET,
+	input MODE,
 	input [3:0] note,
 	output reg [7:0] Led
 );
