@@ -15,10 +15,8 @@ module odetojoyAUTO (
 reg [5:0] state;
 
 // Next state
-always @ (posedge _QUARTER_BEAT or posedge RESET) begin
-	if (RESET)
-		state <= 6'b0;
-	else if (MODE)
+always @ (posedge _QUARTER_BEAT or posedge MODE) begin
+	if (MODE || RESET)
 		state <= 6'b0;
 	else begin
 		if (state == 6'b111111)
