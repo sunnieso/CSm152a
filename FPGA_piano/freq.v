@@ -176,7 +176,7 @@ always @ (posedge CLK or posedge RESET) begin
 	end
 	else begin 
 		//if (cnt_CLK_C5 == 17'b10_1110_1010_1110_010) begin  /* for synthesis */
-		if (cnt_CLK_C5 == 1'b00_0000_0001_0000_000) begin /* for testbench */
+		if (cnt_CLK_C5 == 17'b00_0000_0001_0000_000) begin /* for testbench */
 			cnt_CLK_C5 <= 17'b0;
 			CLK_C5 <= ~CLK_C5;
 		end

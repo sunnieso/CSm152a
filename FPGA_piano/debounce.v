@@ -26,7 +26,7 @@ assign d_queue_cnt = ~(d_queue[D-1]);
 
 // SYNCHRONOUS assign FF1 FF2 d_queue 
 always @ ( posedge CLK ) begin
-	if(RESET ==  1'b0) begin
+	if(RESET ==  1'b1) begin
 		FF1 <= 1'b0;
 		FF2 <= 1'b0;
 		d_queue <= { D {1'b0} };

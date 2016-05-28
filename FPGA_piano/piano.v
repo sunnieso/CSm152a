@@ -3,6 +3,7 @@
 `include "notes.v"
 `include "odetojoy.v"
 `include "display.v"
+`include "debounce.v"
 
 module piano (
 	input CLK,
