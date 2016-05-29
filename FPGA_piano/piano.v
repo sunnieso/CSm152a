@@ -120,7 +120,7 @@ debounce sw7(
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
 		FREQ <= 0;
-	else if (mode == 1'b1) begin	// auto play mode
+	else if (mode == 2'b01) begin	// auto play mode
 		if (auto_note == C4)
 			FREQ <= CLK_C4;
 		else if (auto_note == D)
@@ -140,6 +140,26 @@ always @ (posedge CLK or posedge RESET) begin
 		else // none
 			FREQ <= 0;
 	end 
+	else if (mode 2'b10) begin
+		if (auto2_note == C4)
+			FREQ <= CLK_C4;
+		else if (auto2_note == D)
+			FREQ <= CLK_D;
+		else if (auto2_note == E)
+			FREQ <= CLK_E;
+		else if (auto2_note == F)
+			FREQ <= CLK_F;
+		else if (auto2_note == G)
+			FREQ <= CLK_G;
+		else if (auto2_note == A)
+			FREQ <= CLK_A;
+		else if (auto2_note == B)
+			FREQ <= CLK_B;
+		else if (auto2_note == C5)
+			FREQ <= CLK_C5;
+		else // none
+			FREQ <= 0;
+	end
 	else begin	// lesson mode
 		if (d_sw[7])
 			FREQ <= CLK_C4;
