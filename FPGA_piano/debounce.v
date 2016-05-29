@@ -8,8 +8,8 @@ module debounce (
 	);
 	
 // size of registers for debouncing
-//parameter D = 22;	/* for synthesis */
-parameter D = 2;	/* for testbench */
+parameter D = 22;	/* for synthesis */
+//parameter D = 2;	/* for testbench */
 
 
 reg FF1, FF2;			    // input for flip flops

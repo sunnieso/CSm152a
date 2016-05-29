@@ -39,8 +39,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_C4 <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_C4 == 18'b10_1110_1010_1000_0101) begin  /* for synthesis */
-		if (cnt_CLK_C4 == 18'b000_0000_0000_0000_001) begin /* for testbench */
+		if (cnt_CLK_C4 == 18'b10_1110_1010_1000_0101) begin  /* for synthesis */
+		//if (cnt_CLK_C4 == 18'b000_0000_0000_0000_001) begin /* for testbench */
 			cnt_CLK_C4 <= 18'b0;
 			CLK_C4 <= ~CLK_C4;
 		end
@@ -58,8 +58,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_D <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_D == 18'b101_0011_0010_0011_001 ) begin   /* for synthesis */
-		if (cnt_CLK_D == 18'b000_0000_0000_0000_010) begin /* for testbench */
+		if (cnt_CLK_D == 18'b101_0011_0010_0011_001 ) begin   /* for synthesis */
+		//if (cnt_CLK_D == 18'b000_0000_0000_0000_010) begin /* for testbench */
 			cnt_CLK_D <= 18'b0;
 			CLK_D <= ~CLK_D;
 		end
@@ -78,8 +78,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_E <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_E == 18'b100_1010_0001_0000_101 ) begin  /* for synthesis */
-		if (cnt_CLK_E == 18'b000_0000_0000_0000_100) begin /* for testbench */
+		if (cnt_CLK_E == 18'b100_1010_0001_0000_101 ) begin  /* for synthesis */
+		//if (cnt_CLK_E == 18'b000_0000_0000_0000_100) begin /* for testbench */
 			cnt_CLK_E <= 18'b0;
 			CLK_E <= ~CLK_E;
 		end
@@ -97,8 +97,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_F <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_F == 18'b100_0101_1110_1000_100 ) begin   /* for synthesis */
-		if (cnt_CLK_F == 18'b000_0000_0000_0001_000) begin /* for testbench */
+		if (cnt_CLK_F == 18'b100_0101_1110_1000_100 ) begin   /* for synthesis */
+		//if (cnt_CLK_F == 18'b000_0000_0000_0001_000) begin /* for testbench */
 			cnt_CLK_F <= 18'b0;
 			CLK_F <= ~CLK_F;
 		end
@@ -117,8 +117,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_G <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_G == 17'b11_1110_0100_0111_111 ) begin  /* for synthesis */
-		if (cnt_CLK_G == 17'b00_0000_0000_0010_000) begin /* for testbench */
+		if (cnt_CLK_G == 17'b11_1110_0100_0111_111 ) begin  /* for synthesis */
+		//if (cnt_CLK_G == 17'b00_0000_0000_0010_000) begin /* for testbench */
 			cnt_CLK_G <= 17'b0;
 			CLK_G <= ~CLK_G;
 		end
@@ -136,8 +136,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_A <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_A == 17'b11_0111_0111_1100_100) begin  /* for synthesis */
-		if (cnt_CLK_A == 17'b00_0000_0000_0100_000) begin /* for testbench */
+		if (cnt_CLK_A == 17'b11_0111_0111_1100_100) begin  /* for synthesis */
+		//if (cnt_CLK_A == 17'b00_0000_0000_0100_000) begin /* for testbench */
 			cnt_CLK_A <= 17'b0;
 			CLK_A <= ~CLK_A;
 		end
@@ -155,8 +155,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_B <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_B == 17'b11_0001_0110_1011_110 ) begin  /* for synthesis */
-		if (cnt_CLK_B == 17'b00_0000_0000_1000_000) begin /* for testbench */
+		if (cnt_CLK_B == 17'b11_0001_0110_1011_110 ) begin  /* for synthesis */
+		//if (cnt_CLK_B == 17'b00_0000_0000_1000_000) begin /* for testbench */
 			cnt_CLK_B <= 17'b0;
 			CLK_B <= ~CLK_B;
 		end
@@ -175,8 +175,8 @@ always @ (posedge CLK or posedge RESET) begin
 		CLK_C5 <= 0;
 	end
 	else begin 
-		//if (cnt_CLK_C5 == 17'b10_1110_1010_1110_010) begin  /* for synthesis */
-		if (cnt_CLK_C5 == 17'b00_0000_0001_0000_000) begin /* for testbench */
+		if (cnt_CLK_C5 == 17'b10_1110_1010_1110_010) begin  /* for synthesis */
+		//if (cnt_CLK_C5 == 17'b00_0000_0001_0000_000) begin /* for testbench */
 			cnt_CLK_C5 <= 17'b0;
 			CLK_C5 <= ~CLK_C5;
 		end
@@ -194,8 +194,8 @@ always @ (posedge CLK or posedge RESET) begin
 		QUARTER_BEAT <= 0;
 	end
 	else begin 
-		//if (cnt_QUARTER == 28'b0000_1110_1011_1100_0010_0000_0000) begin  /* for synthesis */
-		if (cnt_QUARTER == 28'b0000_0000_0000_0000_0000_0000_1000) begin /* for testbench */
+		if (cnt_QUARTER == 28'b0000_1110_1011_1100_0010_0000_0000) begin  /* for synthesis */
+		//if (cnt_QUARTER == 28'b0000_0000_0000_0000_0000_0000_1000) begin /* for testbench */
 			cnt_QUARTER <= 10'b0;
 			QUARTER_BEAT <= ~QUARTER_BEAT;
 		end
@@ -206,24 +206,4 @@ always @ (posedge CLK or posedge RESET) begin
 	end
 end
 
-// EIGHTH_NOTE
-/*
-always @ (posedge CLK or posedge RESET) begin
-	if (RESET) begin
-		cnt_EIGHTH <= 10'b0;
-		EIGHTH_BEAT <= 0;
-	end
-	else begin 
-		if (cnt_EIGHTH == 9'b1_0001_0000) begin  for synthesis 
-		if (cnt_EIGHTH == 9'b0_0000_0100) begin  for testbench 
-			cnt_EIGHTH <= 10'b0;
-			EIGHTH_BEAT <= ~EIGHTH_BEAT;
-		end
-		else begin
-			cnt_EIGHTH <= cnt_EIGHTH + 1'b1;
-			EIGHTH_BEAT <= EIGHTH_BEAT;
-		end
-	end
-end
-*/
 endmodule
