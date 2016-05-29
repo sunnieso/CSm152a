@@ -117,10 +117,10 @@ always @(state) begin
 		7'b1010110: note = G;
 		7'b1010111: note = A;
 		7'b1011000: note = B;
-		7'b1011001: note = C;
-		7'b1011010: note = C;
-		7'b1011011: note = C;
-		7'b1011100: note = C;
+		7'b1011001: note = C4;
+		7'b1011010: note = C4;
+		7'b1011011: note = C4;
+		7'b1011100: note = C4;
 		7'b1011101: note = B;
 		7'b1011110: note = A;
 		7'b1011111: note = A;
@@ -130,8 +130,8 @@ always @(state) begin
 		7'b1100011: note = B;
 		7'b1100100: note = G;
 		7'b1100101: note = G;
-		7'b1100110: note = C;
-		7'b1100111: note = C;
+		7'b1100110: note = C4;
+		7'b1100111: note = C4;
 		7'b1101000: note = G;
 		7'b1101001: note = G;
 		7'b1101010: note = E;

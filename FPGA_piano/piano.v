@@ -43,7 +43,6 @@ wire CLK_A;
 wire CLK_B;
 wire CLK_C5;
 wire QUARTER_BEAT;
-//wire EIGHTH_BEAT;
 
 clockManager freqs(
 	.CLK(CLK),
@@ -57,7 +56,6 @@ clockManager freqs(
 	.CLK_B(CLK_B),
 	.CLK_C5(CLK_C5),
 	.QUARTER_BEAT(QUARTER_BEAT)
-	//.EIGHTH_BEAT(EIGHTH_BEAT)
 );
 
 // Debounce switches
@@ -143,21 +141,21 @@ always @ (posedge CLK or posedge RESET) begin
 			FREQ <= 0;
 	end 
 	else begin	// lesson mode
-		if (sw[7])
+		if (d_sw[7])
 			FREQ <= CLK_C4;
-		else if (sw[6])
+		else if (d_sw[6])
 			FREQ <= CLK_D;
-		else if (sw[5])
+		else if (d_sw[5])
 			FREQ <= CLK_E;
-		else if (sw[4])
+		else if (d_sw[4])
 			FREQ <= CLK_F;
-		else if (sw[3])
+		else if (d_sw[3])
 			FREQ <= CLK_G;
-		else if (sw[2])
+		else if (d_sw[2])
 			FREQ <= CLK_A;
-		else if (sw[1])
+		else if (d_sw[1])
 			FREQ <= CLK_B;
-		else if (sw[0])
+		else if (d_sw[0])
 			FREQ <= CLK_C5;
 		else
 			FREQ <= 0;
@@ -180,7 +178,7 @@ odetojoyAUTO autoSong (
 wire [3:0] auto2_note;
 wire [7:0] auto2_Led;
 
-doReMiAUTO autoSong (
+doReMiAUTO autoSong2 (
 	.RESET(RESET),
 	.MODE2(MODE2),
 	._QUARTER_BEAT(QUARTER_BEAT),
@@ -195,7 +193,7 @@ wire [7:0] play_Led;
 notes notes(
 	.CLK(CLK),
 	.RESET(RESET),
-	.sw(sw),
+	.sw(d_sw),
 	.note(play_note)
 );
 

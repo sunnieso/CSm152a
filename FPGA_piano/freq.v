@@ -12,7 +12,6 @@ module clockManager(    // Clock manager that outputs all clock signals.
 	output reg CLK_B,	// 493.88 ==> 202429
 	output reg CLK_C5, 	// 523.25 ==> 191204
 	output reg QUARTER_BEAT
-	//output reg EIGHTH_BEAT
 	);
 
 /* tempo=110 ==>
@@ -30,7 +29,6 @@ reg [16:0] cnt_CLK_A;
 reg [16:0] cnt_CLK_B;
 reg [16:0] cnt_CLK_C5;
 reg [27:0] cnt_QUARTER;
-//reg [8:0] cnt_EIGHTH;
 
 // CLK_C4
 always @ (posedge CLK or posedge RESET) begin
