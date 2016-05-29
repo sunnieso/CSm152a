@@ -4,11 +4,13 @@
 `include "odetojoy.v"
 `include "display.v"
 `include "debounce.v"
+`include "doReMiAUTO.v"
 
 module piano (
 	input CLK,
 	input RESET,
 	input MODE,			// toggle button: switch between autoplay and lesson modes.
+	input MODE2,
 	input [7:0] sw,
 	output reg FREQ,
 	output [7:0] Led,
@@ -19,16 +21,17 @@ module piano (
 `include "parameters.v"
 
 // Mode: 1 = autoplay, 0 = lesson mode
-reg mode;
+reg [1:0] mode;
 always @ (posedge CLK or posedge RESET) begin
-	if (RESET)		mode <= 1'b0;
-	else if (MODE)		mode <= 1'b1;
+	if (RESET)		mode <= 2'b00;
+	else if (MODE)		mode <= 2'b01;
+	else if (MODE2)   mode <= 2'b10;
 	else 		mode <= mode;
 end
 
 wire [3:0] note;
-assign note = mode ? auto_note : play_note;
-assign Led = mode ? auto_Led : play_Led;
+assign note = mode[0] ? auto_note : mode[1] ? auto2_note : play_note;
+assign Led = mode[0] ? auto_Led : mode[1] ? auto2_Led : play_Led;
 
 // Frequency clocks
 wire CLK_C4;
@@ -169,9 +172,20 @@ odetojoyAUTO autoSong (
 	.RESET(RESET),
 	.MODE(MODE),
 	._QUARTER_BEAT(QUARTER_BEAT),
-	//._EIGHTH_BEAT(EIGHTH_BEAT),
 	.note(auto_note),
 	.Led(auto_Led)
+);
+
+// Extract note from autoplay
+wire [3:0] auto2_note;
+wire [7:0] auto2_Led;
+
+doReMiAUTO autoSong (
+	.RESET(RESET),
+	.MODE2(MODE2),
+	._QUARTER_BEAT(QUARTER_BEAT),
+	.note(auto2_note),
+	.Led(auto2_Led)
 );
 
 // Extract note from switches
