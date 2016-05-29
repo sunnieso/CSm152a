@@ -140,7 +140,7 @@ always @ (posedge CLK or posedge RESET) begin
 		else // none
 			FREQ <= 0;
 	end 
-	else if (mode 2'b10) begin
+	else if (mode == 2'b10) begin
 		if (auto2_note == C4)
 			FREQ <= CLK_C4;
 		else if (auto2_note == D)
