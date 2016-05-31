@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
 /*
-
 Seven segment display:
  AAA
 F   B
@@ -9,13 +8,14 @@ F   B
 E   C
  DDD    P
 */
+
 module segDisplay(
 	input [3:0] note,
 	output reg [7:0] seg,
 	output reg [3:0] an
 	);
 
-	// ASYNCHRONOUS assign 7 segment display based on the current note
+	// Assign 7 segment display based on the current note
 	always @ (note) begin
 		case(note)
 						// PGFEDCBA
@@ -29,6 +29,7 @@ module segDisplay(
 			4'h7: seg = 8'b01000110; // C
 			default: seg = 8'b11111111; // none
 		endcase
+		// display on only one digit
 		an = 4'b1110;
 	end
 

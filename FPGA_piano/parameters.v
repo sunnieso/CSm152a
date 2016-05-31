@@ -1,4 +1,4 @@
-// Notes
+// Note parameters
 parameter C5 = 4'b0000;
 parameter B = 4'b0001;
 parameter A = 4'b0010;
@@ -9,6 +9,7 @@ parameter D = 4'b0110;
 parameter C4 = 4'b0111;
 parameter none = 4'b1000;
 
+// Led parameters
 parameter _C5 = 8'b00000001;
 parameter _B = 8'b00000010;
 parameter _A = 8'b00000100;

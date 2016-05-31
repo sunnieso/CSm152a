@@ -1,5 +1,12 @@
 `timescale 1ns / 1ps
 `include "piano.v"
+`include "freq.v"
+`include "notes.v"
+`include "odetojoy.v"
+`include "display.v"
+`include "debounce.v"
+`include "doReMiAUTO.v"
+`include "doReMi.v"
 // 7  6 5 4 3 2 1 0
 // C4 D E F G A B C4
 
