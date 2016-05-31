@@ -2,8 +2,8 @@
 
 module doReMiAUTO (
 	input RESET,
-	input MODE2,
-	input _QUARTER_BEAT,
+	input DOREMI_AUTO,
+	input QUARTER_BEAT,
 	output reg [3:0] note,
 	output reg [7:0] Led
 );
@@ -14,11 +14,11 @@ module doReMiAUTO (
 reg [6:0] state;
 
 // Next state
-always @ (posedge _QUARTER_BEAT or posedge MODE2) begin
-	if (MODE2 || RESET)
+always @ (posedge QUARTER_BEAT or posedge DOREMI_AUTO) begin
+	if (DOREMI_AUTO || RESET)
 		state <= 7'b0;
 	else begin
-		if (state == 7'b1101101)
+		if (state == 7'b1101101) // last state in the song
 			state <= 7'b0;
 		else
 			state <= state + 1'b1;
@@ -143,18 +143,18 @@ always @(state) begin
 end
 
 always @ (note) begin
-		case(note)
-			4'h0: Led = _C5;
-			4'h1: Led = _B;
-			4'h2: Led = _A;
-			4'h3: Led = _G;
-			4'h4: Led = _F;
-			4'h5: Led = _E;
-			4'h6: Led = _D;
-			4'h7: Led = _C4;
-			4'h8: Led = 8'b0; // none
-			default: Led = 8'b11111111; 
-		endcase
-	end
+	case(note)
+		4'h0: Led = _C5;
+		4'h1: Led = _B;
+		4'h2: Led = _A;
+		4'h3: Led = _G;
+		4'h4: Led = _F;
+		4'h5: Led = _E;
+		4'h6: Led = _D;
+		4'h7: Led = _C4;
+		4'h8: Led = 8'b0; // none
+		default: Led = 8'b11111111; 
+	endcase
+end
 
 endmodule

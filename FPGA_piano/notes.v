@@ -9,6 +9,7 @@ module notes (
 
 `include "parameters.v"
 
+// Priority encoder for determining note from switch input
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
 		note <= none;

@@ -14,10 +14,8 @@ module clockManager(    // Clock manager that outputs all clock signals.
 	output reg QUARTER_BEAT
 	);
 
-/* tempo=110 ==>
- * 	 eighth note:  250 ms ==> 
- * 	 quarter note : 500 ms ==> 	28'b1011_1110_1011_1100_0010_0000_0000
- *	 one half note: 1000 ms ==> 			
+/* tempo=240 beats per minute ==>
+ * 	 quarter note : 250 ms ==> 	count = 25'b1_0111_1101_0111_1000_0100_0000
  */
 
 reg [17:0] cnt_CLK_C4;
@@ -28,7 +26,7 @@ reg [16:0] cnt_CLK_G;
 reg [16:0] cnt_CLK_A;
 reg [16:0] cnt_CLK_B;
 reg [16:0] cnt_CLK_C5;
-reg [27:0] cnt_QUARTER;
+reg [24:0] cnt_QUARTER;
 
 // CLK_C4
 always @ (posedge CLK or posedge RESET) begin
@@ -188,13 +186,13 @@ end
 // QUARTER_NOTE
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_QUARTER <= 28'b0;
+		cnt_QUARTER <= 25'b0;
 		QUARTER_BEAT <= 0;
 	end
 	else begin 
-		if (cnt_QUARTER == 28'b0000_1110_1011_1100_0010_0000_0000) begin  /* for synthesis */
-		//if (cnt_QUARTER == 28'b0000_0000_0000_0000_0000_0000_1000) begin /* for testbench */
-			cnt_QUARTER <= 10'b0;
+		if (cnt_QUARTER == 25'b1_0111_1101_0111_1000_0100_0000) begin  /* for synthesis */
+		//if (cnt_QUARTER == 25'b0_0000_0000_0000_0000_0000_1000) begin /* for testbench */
+			cnt_QUARTER <= 25'b0;
 			QUARTER_BEAT <= ~QUARTER_BEAT;
 		end
 		else begin
