@@ -10,6 +10,7 @@ module piano_tb;
 	reg RESET;
 	reg [7:0] sw;
 	reg MODE;
+	reg MODE2;
 	
 	// Outputs
 	wire FREQ;
@@ -23,6 +24,7 @@ module piano_tb;
 		.CLK(CLK), 
 		.RESET(RESET), 
 		.MODE(MODE),
+		.MODE2(MODE2),
 		.sw(sw),
 		.FREQ(FREQ),
 		.Led(Led),
@@ -36,11 +38,20 @@ module piano_tb;
 		RESET = 1;
 		sw = 8'b0;
 		MODE = 0;
+		MODE2 = 0;
 		
 		// Wait 100 ns for global reset to finish
 		#100 RESET = 0;
-		#5 MODE = 1;
-		#5 MODE = 0;
+		#1 MODE = 1;
+		#1 MODE = 0;
+		#1 MODE = 1;
+		#1 MODE = 0;
+		#1 MODE = 1;
+		#1 MODE = 0;
+		#1 MODE = 1;
+		#1 MODE = 0;
+		#10 MODE = 1;
+		#10 MODE = 0;
 		#50 sw[5] = 1;
 		#50 sw[5] = 0;
 		#50 sw[5] = 1;
