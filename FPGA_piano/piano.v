@@ -59,8 +59,8 @@ always @ (posedge CLK or posedge RESET) begin
 	else 		mode <= mode;
 end
 
-assign note = mode[2] ? auto_doremi_note : (mode[1]&~mode[0]) ? auto_odetojoy_note : play_note;
-assign Led = mode[2] ? auto_doremi_Led : (mode[1]&mode[0]) ? doremi_Led : mode[1] ? odetojoy_auto_Led : mode[0] ? odetojoy_Led : 8'b0;
+assign note = mode[2] ? auto_doremi_note : (mode[1]&~mode[0]) ? auto_ode_note : play_note;
+assign Led = mode[2] ? auto_doremi_Led : (mode[1]&mode[0]) ? doremi_Led : mode[1] ? auto_ode_Led : mode[0] ? ode_Led : 8'b0;
 
 clockManager freqs(
 	.CLK(CLK),
@@ -182,7 +182,7 @@ odetojoy Beethoven (
 	.RESET(RESET),
 	.ODETOJOY(ODETOJOY),
 	.note(play_note),
-	.Led(odetojoy_Led)
+	.Led(ode_Led)
 );
 
 // Learn do re mi mode
