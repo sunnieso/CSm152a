@@ -1,32 +1,35 @@
 `timescale 1ns / 1ps
 
 module odetojoyAUTO (
-	input CLK,
 	input RESET,
-	output [3:0] auto_note
-	//output reg [7:0] Led
+	input _QUARTER_BEAT,
+	//input _EIGHTH_BEAT,
+	output [3:0] auto_note,
+	output reg [7:0] Led
 );
 
 `include "parameters.v"
 
-// Quarter beat generator
-wire _QUARTER_BEAT;
-Beat beat(.CLK(CLK), 
-		.RESET(RESET),
-		.QUARTER_BEAT(_QUARTER_BEAT)
-		);
-
 // States
 reg [5:0] state;
 reg [3:0] note;
+
 assign auto_note = note;
-// States counter:
+
+// Next state
 always @ (posedge _QUARTER_BEAT or posedge RESET) begin
 	if (RESET)
 		state <= 6'b0;
-	else 
-		state <= state + 1'b1;
+	else begin
+		if (state == 6'b011110)
+			state <= 6'b0;
+		else
+			state <= state + 1'b1;
+	end
+end
 
+// Note
+always @(state) begin
 	case (state)
 		6'b000000: note <= E;
 		6'b000001: note <= none;
@@ -60,12 +63,13 @@ always @ (posedge _QUARTER_BEAT or posedge RESET) begin
 		6'b011101: note <= D;
 		6'b011110: note <= D;
 
-		// new parts
+		// new parts 
+		/*
 		6'b011111: note <= none;
 		6'b100000: note <= E;
 		6'b100001: note <= none;
 		6'b100010: note <= E;
-		6'b100011: note <= ;
+		6'b100011: note <= none;
 		6'b100100: note <= F;
 		6'b100101: note <= none;
 		6'b100110: note <= G;
@@ -93,13 +97,11 @@ always @ (posedge _QUARTER_BEAT or posedge RESET) begin
 		6'b111100: note <= C4;
 		6'b111101: note <= C4;
 		6'b111110: note <= C4;
-		6'b111111: note <= none;
+		6'b111111: note <= none; */
 		default: note <= none;
-		
 	endcase
 end
 
-/*
 always @ (state) begin
 	case (state)
 		6'b000000: Led = _E;
@@ -136,6 +138,5 @@ always @ (state) begin
 		default: Led = 8'b0;
 	endcase
 end
-*/
 
 endmodule

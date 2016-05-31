@@ -19,10 +19,13 @@ module piano (
 
 // Mode: 1 = autoplay, 0 = lesson mode
 reg mode;
-always @ (posedge MODE or posedge RESET) begin
+always @ (posedge CLK or posedge RESET) begin
 	if (RESET)		mode <= 1'b0;
-	else 			mode <= ~mode;
+	else if (MODE)		mode <= 1'b1;
+	else 		mode <= mode;
 end
+
+assign Led = mode ? auto_Led : play_Led;
 
 // Frequency clocks
 wire CLK_C4;
@@ -33,6 +36,8 @@ wire CLK_G;
 wire CLK_A;
 wire CLK_B;
 wire CLK_C5;
+wire QUARTER_BEAT;
+//wire EIGHTH_BEAT;
 
 clockManager freqs(
 	.CLK(CLK),
@@ -44,7 +49,9 @@ clockManager freqs(
 	.CLK_G(CLK_G),
 	.CLK_A(CLK_A),
 	.CLK_B(CLK_B),
-	.CLK_C5(CLK_C5)
+	.CLK_C5(CLK_C5),
+	.QUARTER_BEAT(QUARTER_BEAT)
+	//.EIGHTH_BEAT(EIGHTH_BEAT)
 );
 
 always @ (posedge CLK or posedge RESET) begin
@@ -92,8 +99,21 @@ always @ (posedge CLK or posedge RESET) begin
 	end
 end
 
+// Extract note from autoplay
+wire [3:0] auto_note;
+wire [7:0] auto_Led;
+
+odetojoyAUTO autoSong (
+	.RESET(RESET),
+	._QUARTER_BEAT(QUARTER_BEAT),
+	//._EIGHTH_BEAT(EIGHTH_BEAT),
+	.auto_note(auto_note),	// this is an output
+	.Led(auto_Led)
+);
+
 // Extract note from switches
 wire [3:0] note;
+wire [7:0] play_Led;
 
 notes notes(
 	.CLK(CLK),
@@ -107,17 +127,7 @@ odetojoy song (
 	.CLK(CLK),
 	.RESET(RESET),
 	.note(note),
-	.Led(Led)
-);
-
-// Extract note from autoplay
-wire [3:0] auto_note;
-
-odetojoyAUTO autoSong (
-	.CLK(CLK),
-	.RESET(RESET),
-	.auto_note(auto_note)	// this is an output
-	//.Led(Led)
+	.Led(play_Led)
 );
 
 // Show notes on display 
