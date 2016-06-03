@@ -135,17 +135,18 @@ debounce sw7(
 // Assign frequencies based on note
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
-		FREQ <= 0;
+		FREQ <= 1'b0;
 	else begin	// play the correct note frequency
 		case (note)
-			C4: FREQ <= CLK_C4;
-			D: FREQ <= CLK_D;
-			E: FREQ <= CLK_E;
-			F: FREQ <= CLK_F;
-			G: FREQ <= CLK_G;
-			A: FREQ <= CLK_A;
-			B: FREQ <= CLK_B;
-			C5: FREQ <= CLK_C5;
+			4'b0111: FREQ <= CLK_C4;
+			4'b0110: FREQ <= CLK_D;
+			4'b0101: FREQ <= CLK_E;
+			4'b0100: FREQ <= CLK_F;
+			4'b0011: FREQ <= CLK_G;
+			4'b0010: FREQ <= CLK_A;
+			4'b0001: FREQ <= CLK_B;
+			4'b0000: FREQ <= CLK_C5;
+			default: FREQ <= 1'b0;
 		endcase
 	end 
 end
