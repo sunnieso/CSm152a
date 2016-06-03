@@ -43,8 +43,9 @@ module piano_tb;
 		sw = 0;
 
 		// Wait 100 ns for global reset to finish
+		RESET = 1;
 		#100;
-        
+		RESET = 0;
 		// Add stimulus here
 		#1 ODETOJOY_AUTO = 1;
 		#1 ODETOJOY_AUTO = 0;
