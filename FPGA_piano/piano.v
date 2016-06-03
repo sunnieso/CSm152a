@@ -59,7 +59,7 @@ always @ (posedge CLK or posedge RESET) begin
 	else 		mode <= mode;
 end
 
-assign note = mode[2] ? auto_doremi_note : (mode[1]&~mode[0]) ? auto_ode_note : play_note;
+assign note = mode[2] ? auto_doremi_note : (mode[1]&(~mode[0])) ? auto_ode_note : play_note;
 assign Led = mode[2] ? auto_doremi_Led : (mode[1]&mode[0]) ? doremi_Led : mode[1] ? auto_ode_Led : mode[0] ? ode_Led : 8'b0;
 
 clockManager freqs(
