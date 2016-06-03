@@ -10,7 +10,8 @@ module piano (
 	input CLK,
 	input RESET,
 	input MODE,			// toggle button: switch between autoplay and lesson modes.
-	input MODE2,
+	input MODE2, // play doremi
+	input MODE3, // learn doremi
 	input [7:0] sw,
 	output reg FREQ,
 	output [7:0] Led,
@@ -26,12 +27,13 @@ always @ (posedge CLK or posedge RESET) begin
 	if (RESET)		mode <= 2'b00;
 	else if (MODE)		mode <= 2'b01;
 	else if (MODE2)   mode <= 2'b10;
+	else if (MODE3)   mode <= 2'b11;
 	else 		mode <= mode;
 end
 
 wire [3:0] note;
-assign note = mode[0] ? auto_note : mode[1] ? auto2_note : play_note;
-assign Led = mode[0] ? auto_Led : mode[1] ? auto2_Led : play_Led;
+assign note = (~mode[1]&mode[0]) ? auto_note : (mode[1]&(~mode[0])) ? auto2_note : play_note;
+assign Led = (~mode[1]&mode[0]) ? auto_Led : (mode[1]&(~mode[0])) ? auto2_Led : (mode[1]&mode[0]) ? play2_Led : play_Led;
 
 // Frequency clocks
 wire CLK_C4;
@@ -224,6 +226,16 @@ odetojoy song (
 	.MODE(MODE),
 	.note(note),
 	.Led(play_Led)
+);
+
+wire [7:0] play2_Led;
+
+doReMi SoundofMusic (
+	.CLK(CLK),
+	.RESET(RESET),
+	.DOREMI(MODE3),
+	.note(note),
+	.Led(play2_Led)
 );
 
 // Show notes on display 
