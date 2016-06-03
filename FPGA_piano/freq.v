@@ -12,13 +12,10 @@ module clockManager(    // Clock manager that outputs all clock signals.
 	output reg CLK_B,	// 493.88 ==> 202429
 	output reg CLK_C5, 	// 523.25 ==> 191204
 	output reg QUARTER_BEAT
-	//output reg EIGHTH_BEAT
 	);
 
-/* tempo=110 ==>
- * 	 eighth note:  272 ms ==> 9'b1_0001_0000
- * 	 quarter note : 544 ms ==> 	10'b10_0010_0000
- *	 one half note: 1090 ms ==> 11'b100_0100_0010					
+/* tempo=240 beats per minute ==>
+ * 	 quarter note : 250 ms ==> 	count = 25'b1_0111_1101_0111_1000_0100_0000
  */
 
 reg [17:0] cnt_CLK_C4;
@@ -29,8 +26,7 @@ reg [16:0] cnt_CLK_G;
 reg [16:0] cnt_CLK_A;
 reg [16:0] cnt_CLK_B;
 reg [16:0] cnt_CLK_C5;
-reg [9:0] cnt_QUARTER;
-//reg [8:0] cnt_EIGHTH;
+reg [24:0] cnt_QUARTER;
 
 // CLK_C4
 always @ (posedge CLK or posedge RESET) begin
@@ -176,7 +172,7 @@ always @ (posedge CLK or posedge RESET) begin
 	end
 	else begin 
 		if (cnt_CLK_C5 == 17'b10_1110_1010_1110_010) begin  /* for synthesis */
-		//if (cnt_CLK_C5 == 1'b00_0000_0001_0000_000) begin /* for testbench */
+		//if (cnt_CLK_C5 == 17'b00_0000_0001_0000_000) begin /* for testbench */
 			cnt_CLK_C5 <= 17'b0;
 			CLK_C5 <= ~CLK_C5;
 		end
@@ -190,13 +186,13 @@ end
 // QUARTER_NOTE
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET) begin
-		cnt_QUARTER <= 10'b0;
+		cnt_QUARTER <= 25'b0;
 		QUARTER_BEAT <= 0;
 	end
 	else begin 
-		if (cnt_QUARTER == 10'b10_0010_0000) begin  /* for synthesis */
-		//if (cnt_QUARTER == 10'b00_0000_1000) begin /* for testbench */
-			cnt_QUARTER <= 10'b0;
+		if (cnt_QUARTER == 25'b1_0111_1101_0111_1000_0100_0000) begin  /* for synthesis */
+		//if (cnt_QUARTER == 25'b0_0000_0000_0000_0000_0000_1000) begin /* for testbench */
+			cnt_QUARTER <= 25'b0;
 			QUARTER_BEAT <= ~QUARTER_BEAT;
 		end
 		else begin
@@ -206,24 +202,4 @@ always @ (posedge CLK or posedge RESET) begin
 	end
 end
 
-// EIGHTH_NOTE
-/*
-always @ (posedge CLK or posedge RESET) begin
-	if (RESET) begin
-		cnt_EIGHTH <= 10'b0;
-		EIGHTH_BEAT <= 0;
-	end
-	else begin 
-		if (cnt_EIGHTH == 9'b1_0001_0000) begin  for synthesis 
-		if (cnt_EIGHTH == 9'b0_0000_0100) begin  for testbench 
-			cnt_EIGHTH <= 10'b0;
-			EIGHTH_BEAT <= ~EIGHTH_BEAT;
-		end
-		else begin
-			cnt_EIGHTH <= cnt_EIGHTH + 1'b1;
-			EIGHTH_BEAT <= EIGHTH_BEAT;
-		end
-	end
-end
-*/
 endmodule
