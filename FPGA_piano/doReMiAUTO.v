@@ -2,7 +2,7 @@
 
 module doReMiAUTO (
 	input RESET,
-	input MODE2,
+	input START,
 	input _QUARTER_BEAT,
 	output reg [3:0] note,
 	output reg [7:0] Led
@@ -14,8 +14,8 @@ module doReMiAUTO (
 reg [6:0] state;
 
 // Next state
-always @ (posedge _QUARTER_BEAT or posedge MODE2) begin
-	if (MODE2 || RESET)
+always @ (posedge _QUARTER_BEAT or posedge START) begin
+	if (START || RESET)
 		state <= 7'b0;
 	else begin
 		if (state == 7'b1101101)

@@ -3,7 +3,7 @@
 module doReMi (
 	input CLK,
 	input RESET,
-	input DOREMI,
+	input START,
 	input [3:0] note,
 	output reg [7:0] Led
 );
@@ -15,7 +15,7 @@ reg [6:0] state;
 
 // Next state, changes with note change from switch input
 always @ (posedge CLK or posedge RESET) begin
-	if (RESET || DOREMI)
+	if (RESET || START)
 		state <= 7'b0;
 	else begin
 		case (state)

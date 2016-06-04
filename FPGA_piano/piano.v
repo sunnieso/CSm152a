@@ -8,10 +8,10 @@
 
 module piano (
 	input CLK,
-	input RESET,
-	input MODE,			// toggle button: switch between autoplay and lesson modes.
-	input MODE2, // play doremi
-	input MODE3, // learn doremi
+	input RESET,		// reset to learn "ode to joy" . ODE_TO_JOY_LEARN
+	input ODE_TO_JOY_AUTO,			// play "ode to joy"
+	input DOREMI_AUTO, 	// play "doremi"
+	input DOREMI_LEARN, // learn "doremi"
 	input [7:0] sw,
 	output reg FREQ,
 	output [7:0] Led,
@@ -21,19 +21,20 @@ module piano (
 
 `include "parameters.v"
 
-// Mode: 1 = autoplay, 0 = lesson mode
+
 reg [1:0] mode;
 always @ (posedge CLK or posedge RESET) begin
-	if (RESET)		mode <= 2'b00;
-	else if (MODE)		mode <= 2'b01;
-	else if (MODE2)   mode <= 2'b10;
-	else if (MODE3)   mode <= 2'b11;
-	else 		mode <= mode;
+	if (RESET)					mode <= 2'b00;
+	else if (ODE_TO_JOY_AUTO)	mode <= 2'b01;
+	else if (DOREMI_AUTO)   	mode <= 2'b10;
+	else if (DOREMI_LEARN)   	mode <= 2'b11;
+	else 						mode <= mode;
 end
 
+// Determine output  Led.
 wire [3:0] note;
-assign note = (~mode[1]&mode[0]) ? auto_note : (mode[1]&(~mode[0])) ? auto2_note : play_note;
-assign Led = (~mode[1]&mode[0]) ? auto_Led : (mode[1]&(~mode[0])) ? auto2_Led : (mode[1]&mode[0]) ? play2_Led : play_Led;
+assign note = (~mode[1]&mode[0]) ? ode_to_joy_auto_note : (mode[1]&(~mode[0])) ? do_re_mi_auto_note : play_note;
+assign Led = (~mode[1]&mode[0]) ? ode_to_joy_led : (mode[1]&(~mode[0])) ? do_re_mi_led : (mode[1]&mode[0]) ? play_doremi_led : play_odetojoy_led;
 
 // Frequency clocks
 wire CLK_C4;
@@ -119,45 +120,46 @@ debounce sw7(
 	.D_OUT(d_sw[7])
 );
 
+// output frequency
 always @ (posedge CLK or posedge RESET) begin
 	if (RESET)
 		FREQ <= 0;
-	else if (mode == 2'b01) begin	// auto play mode
-		if (auto_note == C4)
+	else if (mode == 2'b01) begin	// auto play "ode to joy"
+		if (ode_to_joy_auto_note == C4)
 			FREQ <= CLK_C4;
-		else if (auto_note == D)
+		else if (ode_to_joy_auto_note == D)
 			FREQ <= CLK_D;
-		else if (auto_note == E)
+		else if (ode_to_joy_auto_note == E)
 			FREQ <= CLK_E;
-		else if (auto_note == F)
+		else if (ode_to_joy_auto_note == F)
 			FREQ <= CLK_F;
-		else if (auto_note == G)
+		else if (ode_to_joy_auto_note == G)
 			FREQ <= CLK_G;
-		else if (auto_note == A)
+		else if (ode_to_joy_auto_note == A)
 			FREQ <= CLK_A;
-		else if (auto_note == B)
+		else if (ode_to_joy_auto_note == B)
 			FREQ <= CLK_B;
-		else if (auto_note == C5)
+		else if (ode_to_joy_auto_note == C5)
 			FREQ <= CLK_C5;
 		else // none
 			FREQ <= 0;
 	end 
-	else if (mode == 2'b10) begin
-		if (auto2_note == C4)
+	else if (mode == 2'b10) begin	// auto play sound of music / "DoReMi"
+		if (do_re_mi_auto_note == C4)
 			FREQ <= CLK_C4;
-		else if (auto2_note == D)
+		else if (do_re_mi_auto_note == D)
 			FREQ <= CLK_D;
-		else if (auto2_note == E)
+		else if (do_re_mi_auto_note == E)
 			FREQ <= CLK_E;
-		else if (auto2_note == F)
+		else if (do_re_mi_auto_note == F)
 			FREQ <= CLK_F;
-		else if (auto2_note == G)
+		else if (do_re_mi_auto_note == G)
 			FREQ <= CLK_G;
-		else if (auto2_note == A)
+		else if (do_re_mi_auto_note == A)
 			FREQ <= CLK_A;
-		else if (auto2_note == B)
+		else if (do_re_mi_auto_note == B)
 			FREQ <= CLK_B;
-		else if (auto2_note == C5)
+		else if (do_re_mi_auto_note == C5)
 			FREQ <= CLK_C5;
 		else // none
 			FREQ <= 0;
@@ -184,33 +186,33 @@ always @ (posedge CLK or posedge RESET) begin
 	end
 end
 
-// Extract note from autoplay
-wire [3:0] auto_note;
-wire [7:0] auto_Led;
+// Extract note from auto ode to joy
+wire [3:0] ode_to_joy_auto_note;
+wire [7:0] ode_to_joy_led;
 
-odetojoyAUTO autoSong (
+odetojoyAUTO Odetojoy_auto_song (
 	.RESET(RESET),
-	.MODE(MODE),
-	._QUARTER_BEAT(QUARTER_BEAT),
-	.note(auto_note),
-	.Led(auto_Led)
+	.START(ODE_TO_JOY_AUTO),		// start from initial state
+	._QUARTER_BEAT(QUARTER_BEAT),	
+	.note(ode_to_joy_auto_note),
+	.Led(ode_to_joy_led)
 );
 
-// Extract note from autoplay
-wire [3:0] auto2_note;
-wire [7:0] auto2_Led;
+// Extract note from auto sound of music
+wire [3:0] do_re_mi_auto_note;
+wire [7:0] do_re_mi_led;
 
-doReMiAUTO autoSong2 (
+doReMiAUTO SoundofMusic_auto_song (
 	.RESET(RESET),
-	.MODE2(MODE2),
+	.START(DOREMI_AUTO),
 	._QUARTER_BEAT(QUARTER_BEAT),
-	.note(auto2_note),
-	.Led(auto2_Led)
+	.note(do_re_mi_auto_note),
+	.Led(do_re_mi_led)
 );
 
 // Extract note from switches
 wire [3:0] play_note;
-wire [7:0] play_Led;
+wire [7:0] play_odetojoy_led;
 
 notes notes(
 	.CLK(CLK),
@@ -220,22 +222,22 @@ notes notes(
 );
 
 // Show ode to joy instructions on LEDs
-odetojoy song (
+odetojoy Odetojoy (
 	.CLK(CLK),
 	.RESET(RESET),
-	.MODE(MODE),
+	.START(ODE_TO_JOY_AUTO),
 	.note(note),
-	.Led(play_Led)
+	.Led(play_odetojoy_led)
 );
 
-wire [7:0] play2_Led;
+wire [7:0] play_doremi_led;
 
 doReMi SoundofMusic (
 	.CLK(CLK),
 	.RESET(RESET),
-	.DOREMI(MODE3),
+	.START(DOREMI_LEARN),
 	.note(note),
-	.Led(play2_Led)
+	.Led(play_doremi_led)
 );
 
 // Show notes on display 

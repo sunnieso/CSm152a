@@ -3,7 +3,7 @@
 module odetojoy (
 	input CLK,
 	input RESET,
-	input MODE,
+	input START,
 	input [3:0] note,
 	output reg [7:0] Led
 );
@@ -14,7 +14,7 @@ module odetojoy (
 reg [5:0] state;
 
 always @ (posedge CLK or posedge RESET) begin
-	if (RESET || MODE)
+	if (RESET || START)
 		state <= 6'b0;
 	else begin
 		case (state)

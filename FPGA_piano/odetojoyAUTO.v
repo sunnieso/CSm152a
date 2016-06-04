@@ -2,7 +2,7 @@
 
 module odetojoyAUTO (
 	input RESET,
-	input MODE,
+	input START,
 	input _QUARTER_BEAT,
 	//input _EIGHTH_BEAT,
 	output reg [3:0] note,
@@ -15,8 +15,8 @@ module odetojoyAUTO (
 reg [5:0] state;
 
 // Next state
-always @ (posedge _QUARTER_BEAT or posedge MODE) begin
-	if (MODE || RESET)
+always @ (posedge _QUARTER_BEAT or posedge START) begin
+	if (START || RESET)
 		state <= 6'b0;
 	else begin
 		if (state == 6'b111111)
