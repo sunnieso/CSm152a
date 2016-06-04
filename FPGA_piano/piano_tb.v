@@ -46,30 +46,29 @@ module piano_tb;
 		RESET = 0;
 		// Add stimulus here
 		#1 ODE_TO_JOY_AUTO = 1;
-		#1 ODE_TO_JOY_AUTO = 0;
-		#1 ODE_TO_JOY_AUTO = 1;
-		#1 ODE_TO_JOY_AUTO = 0;
-		#1 ODE_TO_JOY_AUTO = 1;
 		#20 ODE_TO_JOY_AUTO = 0;
 
 
 
 		#1000 DOREMI_AUTO = 1;
-		#1 DOREMI_AUTO = 0;
-		#1 DOREMI_AUTO = 1;
-		#1 DOREMI_AUTO = 0;
-		#1 DOREMI_AUTO = 1;
 		#20 DOREMI_AUTO = 0;
 
 
 
 
 		#1000 RESET = 1;
-		#1 RESET = 0;
-		#1 RESET = 1;
 		#20 RESET = 0;
 
 			#50 sw[5] = 1; //e
+			#1  sw[5] = 0; //e
+			#1  sw[5] = 1; //e
+			#1  sw[5] = 0; //e
+			#1  sw[5] = 1; //e
+			#1  sw[5] = 0; //e
+			#1  sw[5] = 1; //e
+			#1  sw[5] = 0; //e
+			#1  sw[5] = 1; //e
+			
 			#50 sw[5] = 0; 
 			#50 sw[5] = 1; //e
 			#50 sw[5] = 0; 
@@ -134,10 +133,6 @@ module piano_tb;
 
 
 
-		#1 DOREMI_LEARN = 1;
-		#1 DOREMI_LEARN = 0;
-		#1 DOREMI_LEARN = 1;
-		#1 DOREMI_LEARN = 0;
 		#1 DOREMI_LEARN = 1;
 		#20 DOREMI_LEARN = 0;
 			#50 sw[7] = 1; //c
